@@ -26,9 +26,29 @@ Tech
 
 Iphone Bypass Nodejs uses open source projects to work properly:
 
-* [SailsJs] - awesome MVC framework 
+* [SailsJs, version 0.10.5] - awesome MVC framework 
 
-Installation
+Features and roadmap 
+-----------
+If anyone would like to participate to this, I would be glad including more people on this project :-)
+
+All information are logged in the console from now in the future
+- data will be displayed in the browser
+- data will be stored in mongodb (using deployd)
+- data will be browsable (we also will be able to search information)
+- data and information of the iphone will be analyzed
+
+How to use ?
+-----------
+This is up your plateform, but by the way :
+- Macosx : modify your /etc/hosts and add "127.0.0.1 albert.apple.com"
+- Windows : modify your hosts file and add "127.0.0.1 albert.apple.com"
+
+Then you launch the app in a console after you installed sailjs.
+
+Then you launch itunes and connect your iphone.
+
+Installation & running
 --------------
 
 ```sh
