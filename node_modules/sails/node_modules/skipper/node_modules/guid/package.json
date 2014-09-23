@@ -1,0 +1,85 @@
+{
+  "author": {
+    "name": "Dan Dean",
+    "email": "@dandean",
+    "url": "http://dandean.com"
+  },
+  "name": "guid",
+  "description": "A Guid generator and validator.",
+  "version": "0.0.12",
+  "homepage": "https://github.com/dandean/guid",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dandean/guid.git"
+  },
+  "scripts": {
+    "test": "mocha -R spec -u tdd tests/*.js"
+  },
+  "contributors": [
+    {
+      "name": "Tommy Messbauer"
+    }
+  ],
+  "main": "./guid",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/dandean/guid/raw/master/LICENSE"
+    }
+  ],
+  "ender": "./ender.js",
+  "devDependencies": {
+    "mocha": "~1.14.0"
+  },
+  "testling": {
+    "browsers": {
+      "ie": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "ff": [
+        24,
+        25,
+        "nightly"
+      ],
+      "chrome": [
+        28,
+        29,
+        30,
+        31,
+        "canary"
+      ],
+      "safari": [
+        "5.0.5",
+        5.1
+      ],
+      "android-browser": [
+        4.2
+      ],
+      "opera": [
+        17,
+        "next"
+      ],
+      "iphone": [
+        6
+      ],
+      "ipad": [
+        6
+      ]
+    },
+    "harness": "mocha-tdd",
+    "files": "tests/*.js"
+  },
+  "readme": "# Guid lets you generate and validate unique identifiers.\n\n[![browser support](https://ci.testling.com/tommydudebreaux/guid.png)](https://ci.testling.com/tommydudebreaux/guid)\n\nIn its simplest form, Guid lets you generate raw GUID formatted strings:\n\n    Guid.raw();\n    // -> '6fdf6ffc-ed77-94fa-407e-a7b86ed9e59d'\n\nLet's generate a new Guid instance.\n\n    var guid = Guid.create();\n\nWe've now got an object which we can work with programmatically. Lets check the\nvalidity of our Guid using the built-in validator:\n\n    Guid.isGuid(guid);\n    // -> true\n    \n    Guid.value;\n    // -> '6fdf6ffc-ed77-94fa-407e-a7b86ed9e59d'\n\nA handy bit of functionality is that its `toString` method returns the string\nvalue, so you can do handy things like this:\n\n    var itemUrl = \"http://whatever.com/items/\" + guid;\n    // -> 'http://whatever.com/items/6fdf6ffc-ed77-94fa-407e-a7b86ed9e59d'\n    \nIf you need a placeholder Guid, or a value to represent a non-GUID, use the\nstatic `EMPTY` property:\n\n    Guid.EMPTY;\n    // -> '00000000-0000-0000-0000-000000000000'\n\nOnce you have a `Guid` object, you can't change its value (thanks ES5!):\n\n    guid.value = \"go suck it, guid!\"\n    guid.value;\n    // -> '6fdf6ffc-ed77-94fa-407e-a7b86ed9e59d'\n\nTo instantiate an Guid object using an existing GUID string, use the constructor:\n\n    var guid = new Guid('6fdf6ffc-ed77-94fa-407e-a7b86ed9e59d');\n\nYou can check the equality of two different Guid objects using the `equals`\ninstance method.\n\nCompare a Guid object to a GUID string:\n\n    guid.equals('6fdf6ffc-ed77-94fa-407e-a7b86ed9e59d');\n    // -> true\n\nCompare two Guid objects:\n    \n    guid.equals(new Guid('6fdf6ffc-ed77-94fa-407e-a7b86ed9e59d'));\n    // -> true\n\n## Installation\n\nYou can use npm to install guid: `npm install guid`\n\n\n## But what if I need a UUID, not a GUID?\n\nThere's also a [Uuid](https://github.com/dandean/uuid-lib) library which has the\n**exact** same functionality, but for UUID's:\n[https://github.com/dandean/uuid-lib](https://github.com/dandean/uuid-lib)\n\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/dandean/guid/issues"
+  },
+  "_id": "guid@0.0.12",
+  "_shasum": "9137c52b185f7de12490b9bebcc1660b9025fe0c",
+  "_from": "guid@0.0.12",
+  "_resolved": "https://registry.npmjs.org/guid/-/guid-0.0.12.tgz"
+}

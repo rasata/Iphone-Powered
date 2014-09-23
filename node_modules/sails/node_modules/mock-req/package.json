@@ -1,0 +1,35 @@
+{
+  "name": "mock-req",
+  "version": "0.1.0",
+  "description": "Mocks node.js `http.IncomingMessage` (a request).  See also `mock-res`.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diachedelic/mock-req.git"
+  },
+  "keywords": [
+    "mock",
+    "IncomingMessage",
+    "req",
+    "request",
+    "test",
+    "stub"
+  ],
+  "author": {
+    "name": "James Diacono"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/diachedelic/mock-req/issues"
+  },
+  "readme": "mock-req\n========\n\nMocks node.js `http.IncomingMessage` (a request).  See also `mock-res`.\n\nBeing a readable/writable stream, you can pipe the request body to and from it.\n\n# Usage\nSee `test.js` for further usage.\n\n\tvar MockReq = require('mock-req');\n\n\t// Basic usage\n\tvar req = new MockReq();\n\n\t// With options\n\tvar req = new MockReq({\n\t\tmethod: 'PUT',\n\t\turl: '/stuff?q=thing',\n\t\theaders: {\n\t\t\t'Accept': 'text/plain'\n\t\t},\n\n\t\t// arbitrary properties:\n\t\tsearch: 'thing'\n\t});\n\n\t// Write body\n\treq.write('hello');\n\treq.write('world');\n\n\t// Or stringify to JSON\n\treq.write({\n\t\tval: 5\n\t});\n\n\t// Or even buffers\n\treq.write(new Buffer('buf'));\n\n\t// End body\n\treq.end();\n\n\t// NOTE req.end() is automatically called if \n\t// method is set to GET/HEAD/DELETE.\n\n## Example test case\n\n\tvar assert = require('assert');\n\tvar ping = require('./ping-handler');\n\tvar MockReq = require('mock-req');\n\n\tfunction test(done) {\n\t\t/* Arrange */\n\t\tvar req = new MockReq({\n\t\t\tmethod: 'GET',\n\t\t\turl: '/stuff',\n\t\t\theaders: {\n\t\t\t\t'Accept': 'text/plain'\n\t\t\t}\n\t\t});\n\n\t\t// NOTE: `req.end()` is automatically called for GET/HEAD/DELETE methods\n\n\t\t// Use `mock-res` for a better mock\n\t\tvar res = {\n\t\t\tend: end\n\t\t};\n\n\t\t/* Act */\n\t\tping(req, res);\n\n\t\t/* Assert */\n\t\tfunction end(data) {\n\t\t\tassert.equal(data, 'okay');\n\n\t\t\tdone(); // this is an async test\n\t\t}\n\t}\n\n## Options\nThe options parameter is optional.\n\n* `method`: The request's method, defaults to 'GET'\n* `url`: The request's URL, defaults to ''\n* `headers`: A case insensitive name/value object\n\nAll other values will be copied to the request.\n\n## Methods\n\n* All readable/writable stream methods.\n* `req._fail(error)` Causes the request to emit an `error` when written to.",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/diachedelic/mock-req",
+  "_id": "mock-req@0.1.0",
+  "_shasum": "8d7c3df2a9ca544a8881426097f3057976273031",
+  "_from": "mock-req@0.1.0",
+  "_resolved": "https://registry.npmjs.org/mock-req/-/mock-req-0.1.0.tgz"
+}

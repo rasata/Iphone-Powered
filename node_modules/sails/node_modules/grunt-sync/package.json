@@ -1,0 +1,54 @@
+{
+  "name": "grunt-sync",
+  "description": "Task to synchronize two directories. Similar to grunt-copy but updates only files that have been changed.",
+  "version": "0.0.8",
+  "homepage": "https://github.com/tomusdrw/grunt-sync.git",
+  "author": {
+    "name": "Tomasz Drwiega",
+    "email": "tomusdrw@blacksoft.eu",
+    "url": "http://blacksoft.eu"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tomusdrw/grunt-sync.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tomusdrw/grunt-sync/issues"
+  },
+  "licences": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "readmeFilename": "readme.md",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "promised-io": "0.3.3"
+  },
+  "devDependencies": {
+    "mocha": "~1.8.1",
+    "chai": "1.4.2",
+    "grunt": "0.4.x",
+    "grunt-simple-mocha": "0.3.x",
+    "grunt-contrib-jshint": "0.1.x",
+    "grunt-complexity": "^0.1.51"
+  },
+  "keywords": [
+    "gruntplugin",
+    "sync",
+    "synchronize",
+    "copy"
+  ],
+  "readme": "# Grunt-sync\n\nA [grunt](http://github.com/gruntjs/grunt/) task to keep directories in sync.\nIt is very similar to [grunt-contrib-copy](https://github.com/gruntjs/grunt-contrib-copy) but\ntries to copy only those files that has actually changed.\n\n## Usage\n\n```bash\nnpm install grunt-sync --save\n```\n\nWithin your grunt file:\n\n```javascript\n  grunt.initConfig({\n\n    sync: {\n      main: {\n        files: [{\n          cwd: 'src',\n          src: [\n            '**', /* Include everything */\n            '!**/*.txt' /* but exclude txt files */\n          ],\n          dest: 'bin',\n        }],\n        verbose: true // Display log messages when copying files\n      }\n    }\n\n  });\n\n  grunt.loadNpmTasks('grunt-sync');\n  grunt.registerTask('default', 'sync');\n```\n\n## More examples\n```javascript\nsync: {\n  main: {\n    files: [\n      {src: ['path/**'], dest: 'dest/'}, // includes files in path and its subdirs\n      {cwd: 'path/', src: ['**/*.js', '**/*.css'], dest: 'dest/'}, // makes all src relative to cwd\n    ],\n    verbose: true\n  }\n}\n```\n\n\n## TODO\nTask does not remove any files and directories in `dest` that are no longer in `src`.\n",
+  "_id": "grunt-sync@0.0.8",
+  "_shasum": "cc8335c31738f504e820af8c78b84d9b970a6f86",
+  "_from": "grunt-sync@~0.0.4",
+  "_resolved": "https://registry.npmjs.org/grunt-sync/-/grunt-sync-0.0.8.tgz"
+}

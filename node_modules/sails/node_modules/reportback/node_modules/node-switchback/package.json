@@ -1,0 +1,45 @@
+{
+  "name": "node-switchback",
+  "version": "0.0.4",
+  "description": "Normalize callback fns to switchbacks and vice versa",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikermcneil/switchback.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "switchback",
+    "handlers",
+    "success",
+    "error",
+    "switcher",
+    "async.if",
+    "sails"
+  ],
+  "author": {
+    "name": "Mike McNeil"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+    "should": "~2.1.1"
+  },
+  "readme": "switchback\n========\n\nNormalize a callback to a \"switchback\" and vice versa.\n\n+ Allows your functions to \"branch\".\n+ Makes usage of branching functions suck less.\n+ Maintains 100% compatibility with node callbacks.\n+ Helps keep users of your async functions from \"forgetting to return early\" andthentimespaceparadox\n+ [Table the label, wear your own name.](http://news.moviefone.com/2010/05/26/cheesy-mr-t-clip-advises-you-to-table-the-label/)\n\n> You might be familiar with a simlar concept from `jQuery.ajax` (i.e. `$.ajax({ success: foo, error: bar });`)\n\n\n## Usage\n\n##### Using a function with a switchback\n```javascript\n\n// So you heard about this new function called `mowLawn`\n// which accepts a switchback.  We know it has a `success`\n// handler, and a catch-all `error` handler, but turns out\n// it also has two others: `gasolineExplosion` and `sliceOffFinger`.\n\n// Let's try it! \n\n// Pass in a switchback:\nmowLawn('quickly', 'zigzags', {\n  // We can omit the `error` handler because the documentation for `mowLawn` says that it's optional.\n  // This varies function-to-function.\n  // (i.e. its only purpose is to act as a catch-all if the two explicit handlers are not specified)\n  \n  gasolineExplosion: function () {\n    // Safety goggles next time.\n  },\n  sliceOffFinger: function (numFingersLost) {\n    // Oh my.\n  },\n  success: function (dollarsEarned) {\n    // Lawn was mowed, everything worked.\n  }\n});\n\n// Or we can pass in a callback function instead:\nmowLawn('quickly', 'zigzags', function (err, dollarsEarned) {\n  if (err) {\n    // Handle the error, count fingers to figure out what happened, etc.\n    // Also don't forget to returnearly or use `else` or something.\n    return;\n  }\n  \n  // Lawn was mowed, everything worked.\n});\n\n// Both are cool.\n```\n\n##### Writing a function that takes advantage of switchbacks\n```javascript\nvar switchback = require('node-switchback');\n\nfunction myFunction (stuff, cb) {\n  cb = switchback(cb);\n  // that's it!\n  \n  // All the standard callback things work the same\n  if (err) return cb(err);\n  \n  // But now you can call custom handlers too:\n  if (cb.someHandler) {\n    \n  }\n  \n  // Mix it up!\n  // Table the label!\n  // Wear your own name!\n  cb(null, 'whatever', 'you', 'want');\n}\n\n```\n\n\n\n## Details\n\n##### More examples of exactly what to expect\n\n```javascript\nfunction freeHouseholdPets (cb) {\n\n  // At the very top, upgrade the callback to a switchback.\n  // You can also do `var sb = switchback(cb)` to make the distinction explicit.\n  cb = switchback(cb);\n  \n  // Do your stuff\n  // ...\n  \n  \n  // If cb was a switchback:\n  /////////////////////////////////////////////////\n  \n  // Things that trigger the `success` handler:\n  return cb();\n  return cb(null);\n  return cb.success('the results!!!!');\n  return cb.success();\n  \n  \n  // Things that trigger the `error` handler:\n  return cb('bahh!');\n  return cb.error('bahh!');\n  return cb.error();\n  \n  \n  // If cb was a callback function:\n  /////////////////////////////////////////////////\n  \n  // OK but what about usage with normal node callbacks?\n  //\n  // If a user of `freeHouseholdPets()` passes in an old-school callback,\n  // e.g. function (err, results) {console.log(err,results);}, here's what\n  // will get printed to the console in each case:\n  \n  cb() // ---> null undefined\n  cb(null, 'the results!!!!') // ---> null the results!!!!\n  cb.success() // ---> null undefined\n  cb.success('the results!!!!'); // ---> null the results!!!!\n  \n  cb('bahh!') // ---> bahh! undefined\n  cb('bahh!', 'foo') // ---> bahh! foo\n  cb.error() // ---> [Error] undefined\n  cb.error('bahh!') // ---> bahh! undefined\n}\n\n\n// Now everybody can use a good ole-fashioned callback function:\nfreeHouseholdPets(function (err, results) {\n  if (err) {\n    // Something came up, the pets were not freed.\n    //\n    // Handle the error, but don't forget to return early\n    // or use `else` or something..\n    return;\n  }\n  \n  // Pets were freed, we can go about our business\n});\n\n// or a switchback:\nfreeHouseholdPets({\n  error: function (err) {\n    // Something came up, the pets were not freed.\n    // Handle the error.\n  },\n  success: function (results) {\n    // Pets were freed, we can go about our business\n  }\n});\n\n```\n\n\n\n\n## Using switchbacks with other flow control libraries\n\n##### with `async`\n```javascript\n// TODO\n```\n\n##### with `q` promises\n```javascript\n// TODO\n```\n\n##### with generators\n```javascript\n// TODO\n```\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/mikermcneil/switchback/issues"
+  },
+  "homepage": "https://github.com/mikermcneil/switchback",
+  "_id": "node-switchback@0.0.4",
+  "_shasum": "05b3cefecdce7904c0cf4c28959f7954f8e961b9",
+  "_from": "node-switchback@0.0.4",
+  "_resolved": "https://registry.npmjs.org/node-switchback/-/node-switchback-0.0.4.tgz"
+}

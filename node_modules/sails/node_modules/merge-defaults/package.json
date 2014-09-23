@@ -1,0 +1,44 @@
+{
+  "name": "merge-defaults",
+  "version": "0.1.4",
+  "description": "A recursive version of _.defaults.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikermcneil/merge-defaults.git"
+  },
+  "keywords": [
+    "lodash",
+    "_",
+    "defaults",
+    "recursive",
+    "deep",
+    "merge",
+    "underscore",
+    "_.defaults"
+  ],
+  "author": {
+    "name": "Mike McNeil"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikermcneil/merge-defaults/issues"
+  },
+  "homepage": "https://github.com/mikermcneil/merge-defaults",
+  "dependencies": {
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+    "should": "~2.1.1",
+    "mocha": "~1.20.1"
+  },
+  "readme": "# merge-defaults\n\nImplements a deep version of `_.defaults`.\n\n> **Important!**\n>\n> This module DOES NOT merge arrays or dates.\n\n\n## Installation\n\n```sh\n$ npm install merge-defaults\n```\n\n## Usage\n\n```javascript\n\nvar _ = require('lodash');\n\n// Override basic `_.defaults`\n_.defaults = require('merge-defaults');\n\n// Or you can add it as a new method\n_.mergeDefaults = require('merge-defaults');\n\n```\n\n## Why?\n\nThis module is a temporary solution, until lodash has something\nsimilar in core that can be called as a single method.\nIn the mean time, this is a hack to make our code more readable.\ni.e. I know what `_.defaults` means intuitively, but I have to look\nup `_.partialRight` every time.\n\nTo get the latest status, see the [original issue in the lodash repo](https://github.com/lodash/lodash/issues/154#issuecomment-32140379).\n\nI'll update this repo with install/version info if something comparable is\nadded to lodash core at some point.\n\n\n\n## License\n\nMIT &copy; Mike McNeil 2014\n",
+  "readmeFilename": "README.md",
+  "_id": "merge-defaults@0.1.4",
+  "_shasum": "9240d495a3f1502d3ad3ca041b031f00599bf178",
+  "_from": "merge-defaults@~0.1.0",
+  "_resolved": "https://registry.npmjs.org/merge-defaults/-/merge-defaults-0.1.4.tgz"
+}

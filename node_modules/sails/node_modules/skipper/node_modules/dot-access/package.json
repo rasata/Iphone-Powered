@@ -1,0 +1,22 @@
+{
+  "name": "dot-access",
+  "version": "0.0.3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ntran013/dot-access.git"
+  },
+  "devDependencies": {
+    "chai": "*"
+  },
+  "readme": "# dot-access\r\n\r\n  Access object properties using dot notation.\r\n  \r\n    var dotAccess = require('dot-access');\r\n    \r\n    var user = { \r\n      fullname: { \r\n        first: 'Joe', \r\n        last: 'M' \r\n      } \r\n    };\r\n    \r\n    // get\r\n    dotAccess.get(user, 'fullname.first'); // 'Joe'\r\n    \r\n    // or set\r\n    dotAccess.set(user, 'fullname.last', 'T'); // 'T'\r\n\r\n## Installation\r\n\r\n  Install with [component(1)](http://component.io):\r\n\r\n    $ component install Ntran013/dot-access\r\n\r\n## API\r\n\r\n\r\n\r\n## License\r\n\r\n  MIT\r\n",
+  "readmeFilename": "README.md",
+  "description": "Access object properties using dot notation.",
+  "bugs": {
+    "url": "https://github.com/Ntran013/dot-access/issues"
+  },
+  "homepage": "https://github.com/Ntran013/dot-access",
+  "_id": "dot-access@0.0.3",
+  "_shasum": "02db216bbf958d0f8c52fa065cc7dd88b5c06a34",
+  "_from": "dot-access@0.0.3",
+  "_resolved": "https://registry.npmjs.org/dot-access/-/dot-access-0.0.3.tgz"
+}

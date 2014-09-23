@@ -1,0 +1,44 @@
+{
+  "name": "captains-log",
+  "version": "0.11.11",
+  "description": "Simple wrapper around Winston to allow for declarative configuaration",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -b"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikermcneil/captains-log.git"
+  },
+  "keywords": [
+    "winston",
+    "sails",
+    "log",
+    "logger",
+    "waterline"
+  ],
+  "author": {
+    "name": "Mike McNeil"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikermcneil/captains-log/issues"
+  },
+  "dependencies": {
+    "lodash": "2.4.1",
+    "rc": "~0.3.2",
+    "colors": "~0.6.2",
+    "merge-defaults": "~0.1.0"
+  },
+  "devDependencies": {
+    "fixture-stdout": "0.2.0",
+    "mocha": "^1.17.1"
+  },
+  "readme": "captains-log\n============\n\nSimple logger for use with Sails, allowing easy custom configuration.\n\n\n#### Default log levels\n\nBased on [npm's log levels](https://github.com/isaacs/npmlog#loglevelprefix-message-)\n\n\n+ `log.silly()`\n+ `log.verbose()`\n+ `log.info()`\n+ `log.debug()`\n  + (npm calls this level `log.http()`, but we call it `debug`.  If you use `log()`, the logger sees this as a call to `log.debug()`)\n+ `log.warn()`\n+ `log.error()`\n\n\n\n\n#### Custom Examples\n\n```javascript\n\n\n/**\n * Using Winston\n * ====================================\n * \n * Formerly, this module encapsulated Winston, a popular logger\n * by @indexzero and the gals/guys over at Nodejitsu.\n * Recently, we made Winston optional to make CaptainsLog as\n * lightweight as possible and reduce `npm install`/`require()`\n * for its usage in other modules.\n *\n * But Winston is awesome!  And it's a great fit for many apps,\n * giving you granular control over how log output is handled,\n * including sending emails, logging to multiple transports,\n * and other production-time concerns.\n *\n * More info/docs on Winston:\n * https://github.com/flatiron/winston\n * \n * To use Winston w/ captains-log, do the following:\n\n\t\tvar captains = CaptainsLog({\n\t\t\tcustom: new (require('winston').Logger)({\n\t\t\t\tlevels     : ...,\n\t\t\t\ttransports : ...\n\t\t\t})\n\t\t});\n *\n */\n\n/**\n *\n * Using your own custom logger\n * ====================================\n * \n * To use a different library, `overrides.custom` must already\n * be instantiated and ready to go with (at minimum) an n-ary `.debug()`\n * method.  i.e. by n-ary, I mean that the following should\n * work (with any # of arguments):\n\t\n\t\tcustomLogger.debug()\n\t\tcustomLogger.debug('blah')\n\t\tcustomLogger.debug('blah', 'foo')\n\t\tcustomLogger.debug('blah', 'foo', {bar: 'baz'})\n\t\tcustomLogger.debug('blah', 'foo', {bar: 'baz'}, ['a', 3], 2, false);\n\t\t// etc.\n\n\t\t// To use a custom logged\n\t\tvar captains = CaptainsLog({\n\t\t\tcustom: customLogger\n\t\t});\n *\n */\n\n```\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/mikermcneil/captains-log",
+  "_id": "captains-log@0.11.11",
+  "_shasum": "962bdefd44351c306b00c45a6da9614ac358538c",
+  "_from": "captains-log@~0.11.8",
+  "_resolved": "https://registry.npmjs.org/captains-log/-/captains-log-0.11.11.tgz"
+}

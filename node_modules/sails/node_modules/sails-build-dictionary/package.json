@@ -1,0 +1,31 @@
+{
+  "name": "sails-build-dictionary",
+  "version": "0.10.1",
+  "description": "Recursively build a dictionary of modules using include-all",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/balderdashy/sails-build-dictionary"
+  },
+  "author": {
+    "name": "Mike McNeil"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/balderdashy/sails-build-dictionary/issues"
+  },
+  "dependencies": {
+    "include-all": "~0.1.2",
+    "lodash": "~2.4.1"
+  },
+  "readme": "# sails-build-dictionary\n\nRecursively build a dictionary of modules using include-all.\n",
+  "readmeFilename": "Readme.md",
+  "homepage": "https://github.com/balderdashy/sails-build-dictionary",
+  "_id": "sails-build-dictionary@0.10.1",
+  "_shasum": "b8cc21b97d420f63d1417a44c2671c94024e3d3d",
+  "_from": "sails-build-dictionary@~0.10.1",
+  "_resolved": "https://registry.npmjs.org/sails-build-dictionary/-/sails-build-dictionary-0.10.1.tgz"
+}

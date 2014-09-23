@@ -1,0 +1,16 @@
+{
+  "name": "dot-access",
+  "repo": "Ntran013/dot-access",
+  "description": "Access object properties using dot notation",
+  "version": "0.0.3",
+  "keywords": [],
+  "dependencies": {},
+  "development": {
+    "visionmedia/mocha": "*"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}

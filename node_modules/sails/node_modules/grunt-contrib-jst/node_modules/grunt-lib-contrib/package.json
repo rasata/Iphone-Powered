@@ -1,0 +1,63 @@
+{
+  "name": "grunt-lib-contrib",
+  "description": "Common functionality shared across grunt-contrib tasks.",
+  "version": "0.7.1",
+  "homepage": "http://github.com/gruntjs/grunt-lib-contrib",
+  "author": {
+    "name": "Grunt Team",
+    "url": "http://gruntjs.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gruntjs/grunt-lib-contrib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gruntjs/grunt-lib-contrib/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/gruntjs/grunt-lib-contrib/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-nodeunit": "~0.3.0",
+    "grunt": "~0.4.0"
+  },
+  "main": "lib/contrib",
+  "dependencies": {
+    "maxmin": "~0.1.0",
+    "strip-path": "~0.1.0"
+  },
+  "contributors": [
+    {
+      "name": "Tyler Kellen",
+      "url": "http://goingslowly.com/"
+    },
+    {
+      "name": "Chris Talkington",
+      "url": "http://christalkington.com/"
+    },
+    {
+      "name": "Larry Davis",
+      "url": "http://lazd.net/"
+    },
+    {
+      "name": "Sindre Sorhus",
+      "url": "http://sindresorhus.com"
+    }
+  ],
+  "readme": "# grunt-lib-contrib [![Build Status](https://secure.travis-ci.org/gruntjs/grunt-lib-contrib.png?branch=master)](http://travis-ci.org/gruntjs/grunt-lib-contrib)\n\n**DEPRECATED - DO NOT USE**\n\n> Common functionality shared across grunt-contrib tasks.\n\n### Helper Functions\n\n#### stripPath(path, stripPath)\n\n**Deprecated. Use [strip-path](https://github.com/sindresorhus/strip-path) instead.**\n\nStrip a path from a path. Normalize both paths for best results.\n\n#### minMaxInfo(min, max, report)\n\n**Deprecated. Use [maxmin](https://github.com/sindresorhus/maxmin) instead.**\n\nHelper for logging compressed, uncompressed and gzipped sizes of strings.\n\n##### report\nChoices: `false`, `'min'`, `'gzip'`\nDefault: `false`\n\nEither do not report anything, report only minification result, or report minification and gzip results.\n\n**Important** Including `'gzip'` results can make this task 5-10x slower depending on the size of the file.\n\n\n```js\nvar max = grunt.file.read('max.js');\nvar min = minify(max);\nminMaxInfo(min, max, 'gzip');\n```\n\nWould print:\n\n```\nOriginal: 495 bytes.\nMinified: 396 bytes.\nGzipped: 36 bytes.\n```\n\n#### getNamespaceDeclaration(ns)\n\nThis helper is used to build JS namespace declarations.\n\n--\n\n*Lib submitted by [Tyler Kellen](https://goingslowly.com/).*\n",
+  "readmeFilename": "README.md",
+  "_id": "grunt-lib-contrib@0.7.1",
+  "_shasum": "b59fa9b6aaa40da827b4995f0720d2debf762e94",
+  "_from": "grunt-lib-contrib@~0.7.0",
+  "_resolved": "https://registry.npmjs.org/grunt-lib-contrib/-/grunt-lib-contrib-0.7.1.tgz"
+}

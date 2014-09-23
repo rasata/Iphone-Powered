@@ -1,0 +1,46 @@
+{
+  "name": "skipper-disk",
+  "version": "0.5.3",
+  "description": "Receive Skipper's file uploads on your local filesystem",
+  "main": "index.js",
+  "scripts": {
+    "test": "node -e \"require('skipper-adapter-tests')({module: require('./')});\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/balderdashy/skipper-disk.git"
+  },
+  "keywords": [
+    "skipper",
+    "filesystem",
+    "file",
+    "upload",
+    "upload",
+    "disk",
+    "drive",
+    "sails",
+    "express"
+  ],
+  "author": {
+    "name": "Mike McNeil"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/balderdashy/skipper-disk/issues"
+  },
+  "homepage": "https://github.com/balderdashy/skipper-disk",
+  "devDependencies": {
+    "skipper-adapter-tests": "~1.5.2"
+  },
+  "dependencies": {
+    "fs-extra": "~0.8.1",
+    "lodash": "~2.4.1",
+    "node-uuid": "~1.4.1"
+  },
+  "readme": "# [<img title=\"skipper-disk - Local disk adapter for Skipper\" src=\"http://i.imgur.com/P6gptnI.png\" width=\"200px\" alt=\"skipper emblem - face of a ship's captain\"/>](https://github.com/balderdashy/skipper-disk) Disk Blob Adapter\n\n[![NPM version](https://badge.fury.io/js/skipper-disk.png)](http://badge.fury.io/js/skipper-disk) &nbsp; &nbsp;\n[![Build Status](https://travis-ci.org/balderdashy/skipper-disk.svg?branch=master)](https://travis-ci.org/balderdashy/skipper-disk)\n\nLocal filesystem adapter for receiving [upstreams](https://github.com/balderdashy/skipper#what-are-upstreams). Particularly useful for streaming multipart file uploads from the [Skipper](github.com/balderdashy/skipper) body parser.\n\n\n========================================\n\n## Installation\n\n```\n$ npm install skipper-disk --save\n```\n\nAlso make sure you have skipper [installed as your body parser](http://beta.sailsjs.org/#/documentation/concepts/Middleware?q=adding-or-overriding-http-middleware).\n\n> Skipper is installed by default in [Sails](https://github.com/balderdashy/sails) as of v0.10.\n\n========================================\n\n## Usage\n\n> This module is bundled as the default file upload adapter in Skipper, so the following usage is slightly simpler than it is with the other Skipper file upload adapters.\n\nIn the route(s) / controller action(s) where you want to accept file uploads, do something like:\n\n```javascript\nreq.file('avatar')\n.upload({\n  // ...options here...\n},function whenDone(err, uploadedFiles) {\n  if (err) return res.negotiate(err);\n  else return res.ok({\n    files: uploadedFiles,\n    textParams: req.params.all()\n  });\n});\n```\n\nFor more detailed usage information and a full list of available options, see the Skipper docs, especially the section on \"[https://github.com/balderdashy/skipper#uploading-files-to-disk](Uploading to Local Disk)\".\n\n========================================\n\n## Contribute\n\nSee `CONTRIBUTING.md`.\n\nTo run the tests:\n\n```shell\n$ npm test\n```\n\nAlso be sure to check out [ROADMAP.md in the Skipper repo](https://github.com/balderdashy/skipper/blob/master/ROADMAP.md).\n\n========================================\n\n### License\n\n**[MIT](./LICENSE)**\n&copy; 2013, 2014-\n\n[Mike McNeil](http://michaelmcneil.com), [Balderdash](http://balderdash.co) & contributors\n\nSee `LICENSE.md`.\n\nThis module is part of the [Sails framework](http://sailsjs.org), and is free and open-source under the [MIT License](http://sails.mit-license.org/).\n\n\n![image_squidhome@2x.png](http://i.imgur.com/RIvu9.png)\n\n\n[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/a22d3919de208c90c898986619efaa85 \"githalytics.com\")](http://githalytics.com/balderdashy/sails.io.js)\n",
+  "readmeFilename": "README.md",
+  "_id": "skipper-disk@0.5.3",
+  "_shasum": "2381e19ae9b75c481b65c735767b15d46267dbed",
+  "_from": "skipper-disk@~0.5.0",
+  "_resolved": "https://registry.npmjs.org/skipper-disk/-/skipper-disk-0.5.3.tgz"
+}

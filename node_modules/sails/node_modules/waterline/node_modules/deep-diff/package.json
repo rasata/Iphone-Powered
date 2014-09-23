@@ -1,0 +1,51 @@
+{
+  "name": "deep-diff",
+  "description": "Javascript utility for calculating deep difference, capturing changes, and applying changes across objects; for nodejs and the browser.",
+  "version": "0.1.7",
+  "keywords": [
+    "diff",
+    "difference",
+    "compare",
+    "change-tracking"
+  ],
+  "author": {
+    "name": "Phillip Clark",
+    "email": "phillip@flitbit.com"
+  },
+  "contributors": [
+    {
+      "name": "SocalNick"
+    },
+    {
+      "name": "sonstone"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/flitbit/diff.git"
+  },
+  "main": "./index.js",
+  "directories": {
+    "examples": "./examples",
+    "releases": "./releases",
+    "test": "./test"
+  },
+  "devDependencies": {
+    "deep-equal": "~0.2.1",
+    "expect.js": "~0.3.1",
+    "mocha": "~1.17.1"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "readme": "# deep-diff [![Build Status](https://travis-ci.org/flitbit/diff.png?branch=master)](https://travis-ci.org/flitbit/diff)\n\n**deep-diff** is a javascript/node.js module providing utility functions for working with the structural differences between objects.\n\n## Features\n\n* Get the structural differences between two objects.\n* Observe the structural differences between two objects.\n* When structural differences represent change, apply change from one object to another.\n* When structural differences represent change, selectively apply change from one object to another.\n\n## ChangeLog\n\n`0.1.7` - [Enhancement #11](https://github.com/flitbit/diff/issues/11) Added the ability to filter properties that should not be analyzed while calculating differences. Makes `deep-diff` more usable when other frameworks attach housekeeping properties to existing objects. AngularJS does exactly such, and this filter ability should ease working with it.\n\n`0.1.6` - Changed objects within nested arrays can now be applied. They were previously recording the changes appropriately but `applyDiff` would error. Comparison of `NaN` works more sanely - comparison to number shows difference, comparison to another `Nan` does not.\n\n## Installation\n```\nnpm install deep-diff\n```\n\nFor the browser, you can install with [bower](http://bower.io/):\n\n```\nbower install deep-diff\n```\n\n## Tests\n\nTests use [mocha](http://visionmedia.github.io/mocha/) and [expect.js](https://github.com/LearnBoost/expect.js/), so if you clone the [github repository](https://github.com/flitbit/json-ptr) you'll need to run:\n\n```bash\nnpm install\n```\n\n... followed by ...\n\n```bash\nnpm test\n```\n\n... or ...\n\n```bash\nmocha -R spec\n```\n\n### Importing\n\n**nodejs**\n```javascript\nvar deep = require('deep-diff')\n```\n\n**browser**\n```html\n<script src=\"deep-diff-0.1.3.min.js\"></script>\n```\n> Minified, browser release of the current version of the module is under the `releases` folder.\n> In a browser, `deep-diff` defines a global variable `DeepDiff`. If there is a conflict in the global namesapce you can restore the conflicting definition and assign `deep-diff` to another variable like this: `var deep = DeepDiff.noConflict();`.\n\n## Simple Examples\n\nIn order to describe differences, change revolves around an `origin` object. For consistency, the `origin` object is always the operand on the `left-hand-side` of operations. The `comparand`, which may contain changes, is always on the `right-hand-side` of operations.\n\n``` javascript\nvar diff = require('deep-diff').diff;\n\nvar lhs = {\n\tname: 'my object',\n\tdescription: 'it\\'s an object!',\n\tdetails: {\n\t\tit: 'has',\n\t\tan: 'array',\n\t\twith: ['a', 'few', 'elements']\n\t}\n};\n\nvar rhs = {\n\tname: 'updated object',\n\tdescription: 'it\\'s an object!',\n\tdetails: {\n\t\tit: 'has',\n\t\tan: 'array',\n\t\twith: ['a', 'few', 'more', 'elements', { than: 'before' }]\n\t}\n};\n\nvar differences = diff(lhs, rhs);\n```\nThe code snippet above would result in the following structure describing the differences:\n``` javascript\n[ { kind: 'E',\n    path: [ 'name' ],\n    lhs: 'my object',\n    rhs: 'updated object' },\n  { kind: 'A',\n    path: [ 'details', 'with' ],\n    index: 2,\n    item: { kind: 'E', path: [], lhs: 'elements', rhs: 'more' } },\n  { kind: 'A',\n    path: [ 'details', 'with' ],\n    index: 3,\n    item: { kind: 'N', rhs: 'elements' } },\n  { kind: 'A',\n    path: [ 'details', 'with' ],\n    index: 4,\n    item: { kind: 'N', rhs: { than: 'before' } } } ]\n```\n\n### Differences\n\nDifferences are reported as one or more change records. Change records have the following structure:\n\n* `kind` - indicates the kind of change; will be one of the following:\n    * `N` - indicates a newly added property/element\n    * `D` - indicates a property/element was deleted\n    * `E` - indicates a property/element was edited\n    * `A` - indicates a change occurred within an array\n* `path` - the property path (from the left-hand-side root)\n* `lhs` - the value on the left-hand-side of the comparison (undefined if kind === 'N')\n* `rhs` - the value on the right-hand-side of the comparison (undefined if kind === 'D')\n* `index` - when kind === 'A', indicates the array index where the change occurred\n* `item` - when kind === 'A', contains a nested change record indicating the change that occurred at the array index\n\nChange records are generated for all structural differences between `origin` and `comparand`. The methods only consider an object's own properties and array elements; those inherited from an object's prototype chain are not considered.\n\nChanges to arrays are recorded simplistically. We care most about the shape of the structure; therefore we don't take the time to determine if an object moved from one slot in the array to another. Instead, we only record the structural\ndifferences. If the structural differences are applied from the `comparand` to the `origin` then the two objects will compare as \"deep equal\" using most `isEqual` implementations such as found in [lodash](https://github.com/bestiejs/lodash) or [underscore](http://underscorejs.org/).\n\n### Changes\n\nWhen two objects differ, you can observe the differences as they are calculated and selectively apply those changes to the origin object (left-hand-side).\n``` javascript\nvar observableDiff = require('deep-diff').observableDiff,\napplyChange        = require('deep-diff').applyChange;\n\nvar lhs = {\n\tname: 'my object',\n\tdescription: 'it\\'s an object!',\n\tdetails: {\n\t\tit: 'has',\n\t\tan: 'array',\n\t\twith: ['a', 'few', 'elements']\n\t}\n};\n\nvar rhs = {\n\tname: 'updated object',\n\tdescription: 'it\\'s an object!',\n\tdetails: {\n\t\tit: 'has',\n\t\tan: 'array',\n\t\twith: ['a', 'few', 'more', 'elements', { than: 'before' }]\n\t}\n};\n\nobservableDiff(lhs, rhs, function (d) {\n\t// Apply all changes except those to the 'name' property...\n\tif (d.path.length !== 1 || d.path.join('.') !== 'name') {\n\t\tapplyChange(lhs, rhs, d);\n\t}\n});\n```\n\n## API Documentation\n\nA standard import of `var diff = require('deep-diff')` is assumed in all of the code examples. The import results in an object having the following public properties:\n\n* `diff`           - a function that calculates the differences between two objects.\n* `observableDiff` - a function that calculates the differences between two objects and reports each to an observer function.\n* `applyDiff`      - a function that applies any structural differences from one object to another.\n* `applyChange`    - a function that applies a single change record to an origin object.\n\n### `diff`\n\nThe `diff` function calculates the difference between two objects. In version `0.1.7` you can supply your own `prefilter` function as the 3rd arguement and control which properties are ignored while calculating differences throughout the object graph.\n\n**Arguments**\n\n+ `lhs` - the left-hand operand; the origin object.\n+ `rhs` - the right-hand operand; the object being compared structurally with the origin object.\n+ `prefilter` - an optional function that determines whether difference analysis should continue down the object graph.\n+ `acc` - an optional accumulator/array (requirement is that it have a `push` function). Each difference is pushed to the specified accumulator.\n\n#### Pre-filtering Object Properties\n\nThe `prefilter`'s signature should be `function(path, key)` and it should return a truthy value for any `path`-`key` combination that should be filtered. If filtered, the difference analysis does no further analysis of on the identified object-property path.\n\n",
+  "readmeFilename": "Readme.md",
+  "bugs": {
+    "url": "https://github.com/flitbit/diff/issues"
+  },
+  "homepage": "https://github.com/flitbit/diff",
+  "_id": "deep-diff@0.1.7",
+  "_shasum": "d36da978b64429c268116cea941f490e7949cd3d",
+  "_from": "deep-diff@~0.1.7",
+  "_resolved": "https://registry.npmjs.org/deep-diff/-/deep-diff-0.1.7.tgz"
+}

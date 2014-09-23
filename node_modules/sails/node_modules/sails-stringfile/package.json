@@ -1,0 +1,42 @@
+{
+  "name": "sails-stringfile",
+  "version": "0.3.2",
+  "description": "translated/localized stringfiles containing messages from Sails core and dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/balderdashy/sails-stringfile.git"
+  },
+  "keywords": [
+    "sails",
+    "waterline",
+    "international",
+    "web",
+    "internationalization",
+    "cli",
+    "locales",
+    "web-framework",
+    "i18n"
+  ],
+  "author": {
+    "name": "Mike McNeil"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/balderdashy/sails-stringfile/issues"
+  },
+  "homepage": "https://github.com/balderdashy/sails-stringfile",
+  "dependencies": {
+    "colors": "*",
+    "lodash": "~2.4.1"
+  },
+  "readme": "sails-stringfile\n===================\n\nLocalized stringfile containing messages used in Sails command-line interface and runtime.\nThis is one part of the effort towards making Sails more accessible to non-native English readers/speakers.\n\n\n\n## How This Module Works\n\nThese files are here for future use-- this project is an early-stage work in progress.\n\n+ Environment variables are used to determine a user's locale.  (defaults to English)\n\n\n## Usage\n\n\n```javascript\n// From Sails core, an adapter, a generator, a hook, or some other dependency:\nvar STRINGFILE = require('sails-stringfile');\n\n// Internally, this module runs node's native `util.format()` method,\n// so you can also template strings:\nvar localizedMessage = STRINGFILE('cli.new.success', ['myApp', {some:'stuff'}, 'more stuff'])\n\n// Then, appropriate msg is brought in auf deutsch, espanol, traditional chinese, english, etc.\nconsole.log(localizedMessage);\n```\n\n\n## Languages\n\nCurrent language support _targets_ are:\n\n+ English\n+ French\n+ Spanish\n+ Traditional Chinese\n+ German\n\n> (please send a PR if you have a request and we'll add it to this list!)\n\n\n\n\n\n\n## How Can I Help?\n\n+ The existing strings need to be pulled out of log messages and errors in:\n  + sails core\n  + anchor core\n  + waterline core\n  + sails-generate-*\n  + sails-hook-*\n  + sails-adapter-* (adapters)\n\n+ Code comments and other support files (like README) in newly generated sails modules (or a new project) should be pulled out into the generator scope and brought in using the same mechanism.  This is only relevant for generators:\n  + sails-generate-new\n  + sails-generate-frontend\n  + sails-generate-backend\n  + sails-generate-views\n  + sails-generate-gruntfile\n  + sails-generate-controller\n  + sails-generate-model\n  + sails-generate-generator\n\n+ A stringfile needs to be created in the `locales` in this repository for each language we want to support, mapping the string keys to a reasonable log message in the target language (the English stringfile is a good reference to see how a particular type of message should be worded, etc.).\n\n\n\n\n\n## License\n\nMIT c. Mike McNeil 2014\n",
+  "readmeFilename": "README.md",
+  "_id": "sails-stringfile@0.3.2",
+  "_shasum": "da4e3666a8f9cfd3e1f346bfb8116a303e1c30bd",
+  "_from": "sails-stringfile@~0.3.0",
+  "_resolved": "https://registry.npmjs.org/sails-stringfile/-/sails-stringfile-0.3.2.tgz"
+}

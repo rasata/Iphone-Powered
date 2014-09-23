@@ -1,0 +1,34 @@
+{
+  "name": "mock-res",
+  "version": "0.1.0",
+  "description": "Mocks node.js http.ServerResponse. See also `mock-req`.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diachedelic/mock-res.git"
+  },
+  "keywords": [
+    "mock",
+    "http",
+    "ServerResponse",
+    "response",
+    "res"
+  ],
+  "author": {
+    "name": "James Diacono"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/diachedelic/mock-res/issues"
+  },
+  "readme": "mock-res\n========\n\nMocks node.js http.ServerResponse (a response). See also `mock-req`.\n\nBeing a readable/writable stream, you can pipe the response body to and from it.\n\n# Usage\nSee `test.js` for further usage.\n\n\tvar MockRes = require('mock-res');\n\n\t// Basic usage\n\tvar res = new MockRes();\n\n\t// With callback for 'finish' event\n\tvar res = new MockRes(function() {\n\t\tconsole.log('Response finished');\n\t});\n\n\t// Or listen for stream events\n\tres.on('error', function(err) {\n\t\tconsole.error('Error: %s', err.stack);\n\n\t\t// If not listened for, the 'error' event will throw,\n\t\t// as is true for any stream.\n\t});\n\tres.on('finish', function() {\n\t\tconsole.log('Finished');\n\t});\n\n\t// Read status code\n\tres.statusCode; // 200 by default\n\n\t// Read body as string\n\tres._getString(); // 'I am a chicken';\n\n\t// Read body as parsed JSON\n\tres._getJSON(); // { chicken: true }\n\n\t// Pipe body somewhere\n\tres.pipe(fs.createWriteStream('/tmp/yo'));\n\n## Example test case\n\n\tvar assert = require('assert');\n\tvar list = require('./list-handler');\n\tvar MockRes = require('mock-res');\n\n\tfunction test(done) {\n\t\t/* Arrange */\n\n\t\t// Use `mock-req` for a better mock\n\t\tvar req = {\n\t\t\tmethod: 'GET',\n\t\t\turl: '/foos'\n\t\t}\n\n\t\tvar res = new MockRes(finish);\n\n\t\t/* Act */\n\t\tlist(req, res);\n\n\t\t/* Assert */\n\t\tfunction finish() {\n\t\t\t// NOTE `this` === `res`\n\n\t\t\tassert.equal(this.statusCode, 200);\n\t\t\tassert.equal(this._getString(), '[{\"id\":0},{\"id\":1}]');\n\t\t\tassert.deepEqual(this._getJSON(), [{id: 0 }, {id: 1 }]);\n\n\t\t\tres.pipe(process.stdout); // `res` is just a readable stream here\n\n\t\t\tdone(); // this is an async test\n\t\t}\n\t}\n\n## Methods\n\n* All readable/writable stream methods.\n* `_getString()` Reads the body as a string, from the internal stream buffer.\n* `_getJSON()` Reads the body as a parsed JSON object, from the internal stream buffer.\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/diachedelic/mock-res",
+  "_id": "mock-res@0.1.0",
+  "_shasum": "ce971806e77e82bfa6bbc2eb0673b61100e21824",
+  "_from": "mock-res@0.1.0",
+  "_resolved": "https://registry.npmjs.org/mock-res/-/mock-res-0.1.0.tgz"
+}

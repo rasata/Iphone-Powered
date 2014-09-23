@@ -1,0 +1,47 @@
+{
+
+	generators: {
+		
+		// Default scope
+		scope: {
+			engine: 'jade',
+			linker: true,
+			adapter: 'sails-disk',
+			_maxHops: 100
+		},
+
+
+		// Configurable generator definitions
+		modules: {
+			
+			// App
+			new: 'sails-generate-new',
+
+			// App Structure
+			backend: 'sails-generate-backend',
+			frontend: 'sails-generate-frontend',
+			gitigore: 'sails-generate-gitigore',
+			packagejson: 'sails-generate-packagejson',
+			readme: 'sails-generate-readme',
+
+			// App Module
+			model: 'sails-generate-model',
+			controller: 'sails-generate-controller',
+			api: 'sails-generate-api',
+			policy: 'sails-generate-policy',
+			response: 'sails-generate-response',
+			views: 'sails-generate-views-handlebars',
+
+			// App Plugins
+			adapter: 'sails-generate-adapter',
+			generator: 'sails-generate-generator',
+			hook: 'sails-generate-hook',
+		}
+
+	},
+
+	hooks: {
+		"moduleloader": ""
+	}
+
+}

@@ -1,0 +1,40 @@
+{
+  "name": "sails-generate-adapter",
+  "version": "0.10.4",
+  "description": "Generate a adapter for Sails.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "adapter",
+    "generator",
+    "sails",
+    "generate",
+    "plugin"
+  ],
+  "author": {
+    "name": "balderdashy"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "lodash": ">=2.4.x",
+    "merge-defaults": ">=0.1.0"
+  },
+  "devDependencies": {
+    "sails-generate": "*",
+    "reportback": "*",
+    "fs-extra": "*"
+  },
+  "sailsGenerator": {
+    "type": "adapter",
+    "behavior": "default implementation of `sails generate adapter`",
+    "sailsVersion": "~0.10.0"
+  },
+  "readme": "![image_squidhome@2x.png](http://i.imgur.com/RIvu9.png)\n\n# sails-generate-adapter\n\n\nA `adapter` generator for use with the Sails command-line interface.\n\n\n### Installation\n\nCertain generators are installed by default in Sails, but they can be overridden.  Check the [Sails docs](http://sailsjs.org/#!documentation) for information on installing generator overrides / custom generators.\n\n<!--\n```sh\n$ npm install sails-generate-adapter\n```\n-->\n\n\n### Production Usage\n\n##### On the command line\n\n```sh\n$ sails generate adapter \n```\n\n##### In a node script\n\n```javascript\nvar path = require('path');\nvar sailsgen = require('sails-generate');\nvar scope = {\n\trootPath: path.resolve(__dirname)\n};\nsailsgen(require('sails-generate-adapter'), scope, function (err) {\n\tif (err) throw err;\n\n\t// It worked.\n});\n```\n\n\n### Development\n\nTo get started quickly and see this generator in action, run the `bin/index.js` script:\n\n```sh\n$ git clone YOUR_FORK_OF_THIS_REPO sails-generate-adapter-fork\n$ cd sails-generate-adapter-fork\n$ npm install\n$ node ./bin\n```\n\n`bin/index.js` is a simple script, bundled only for convenience, that runs the generator with hard-coded scope variables.  Please feel free to modify that file however you like!  Also see `CONTRIBUTING.md` for more information on overriding/enhancing generators.\n\n\n\n### Questions?\n\nSee `FAQ.md`.\n\n\n\n### More Resources\n\n- [Stackoverflow](http://stackoverflow.com/questions/tagged/sails.js)\n- [#sailsjs on Freenode](http://webchat.freenode.net/) (IRC channel)\n- [Twitter](https://twitter.com/sailsjs)\n- [Professional/enterprise](https://github.com/balderdashy/sails-docs/blob/master/FAQ.md#are-there-professional-support-options)\n- [Tutorials](https://github.com/balderdashy/sails-docs/blob/master/FAQ.md#where-do-i-get-help)\n- <a href=\"http://sailsjs.org\" target=\"_blank\" title=\"Node.js framework for building realtime APIs.\"><img src=\"https://github-camo.global.ssl.fastly.net/9e49073459ed4e0e2687b80eaf515d87b0da4a6b/687474703a2f2f62616c64657264617368792e6769746875622e696f2f7361696c732f696d616765732f6c6f676f2e706e67\" width=60 alt=\"Sails.js logo (small)\"/></a>\n\n\n### License\n\n**[MIT](./LICENSE)**\n&copy; 2014 [balderdashy](http://github.com/balderdashy) & [contributors]\n[Mike McNeil](http://michaelmcneil.com), [Balderdash](http://balderdash.co) & contributors\n\n[Sails](http://sailsjs.org) is free and open-source under the [MIT License](http://sails.mit-license.org/).\n\n",
+  "readmeFilename": "README.md",
+  "_id": "sails-generate-adapter@0.10.4",
+  "_shasum": "5a01c866fcc13588fbb7f75559cbcd9e106743ef",
+  "_from": "sails-generate-adapter@~0.10.0",
+  "_resolved": "https://registry.npmjs.org/sails-generate-adapter/-/sails-generate-adapter-0.10.4.tgz"
+}

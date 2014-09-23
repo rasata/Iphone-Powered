@@ -1,0 +1,4 @@
+node_modules
+report.xml
+bin
+*.sublime*

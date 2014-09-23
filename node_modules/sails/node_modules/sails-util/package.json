@@ -1,0 +1,40 @@
+{
+  "name": "sails-util",
+  "version": "0.10.4",
+  "description": "Shared utilities between sails, waterline, etc.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/balderdashy/sails-utils.git"
+  },
+  "keywords": [
+    "sails",
+    "waterline",
+    "util"
+  ],
+  "author": {
+    "name": "Mike McNeil"
+  },
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "json-stringify-safe": "~5.0.0",
+    "underscore.string": "~2.3.3",
+    "lodash": "~2.4.1",
+    "optimist": "~0.6.0",
+    "fs-extra": "~0.8.1",
+    "node-switchback": "0.0.2"
+  },
+  "readme": "sails-util\n===========\n\nShared utilities between sails, waterline, etc.\n\n\n\n\n## Docs\n\nSee [`docs`](./docs).\n\n\n## Coming changes:\n+ async\n+ lodash\n+ optimist\n+ fs-extra\n+ node-switchback\n+ json-stringify-safe\n+ underscore.str\n+ core node `util`\n\n> Most of these extra dependencies will be stripped in an upcoming version,\n> in favor of requiring those dependencies directly in your app instead.\n> This will make this module more lighweight and make all the things install and load faster.\n>\n> ##### Notable exceptions:\n>\n> + Certain commonly-used parts of `underscore.str`, e.g. `_.str.capitalize`\n>   + (but these will be cherry-picked and bundled rather than including the entire dep)\n> + json-stringify-safe will likely stay a dependency.\n>\n> ##### Things to add:\n> + I'd like to bundle a few of the most commonly used methods from momentjs.\n",
+  "bugs": {
+    "url": "https://github.com/balderdashy/sails-utils/issues"
+  },
+  "homepage": "https://github.com/balderdashy/sails-utils",
+  "_id": "sails-util@0.10.4",
+  "_shasum": "2fca3e6a7d0923b2cba7cd970fb778ff0f682513",
+  "_from": "sails-util@~0.10.3",
+  "_resolved": "https://registry.npmjs.org/sails-util/-/sails-util-0.10.4.tgz"
+}

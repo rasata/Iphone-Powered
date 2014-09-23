@@ -1,0 +1,42 @@
+{
+  "name": "sails-generate-api",
+  "version": "0.10.0",
+  "description": "Generate a Sails API.",
+  "main": "lib/index.js",
+  "keywords": [
+    "controller",
+    "model",
+    "api",
+    "generator",
+    "sails",
+    "generate",
+    "plugin"
+  ],
+  "author": {
+    "name": "balderdashy"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "lodash": ">=2.4.x",
+    "merge-defaults": ">=0.1.0",
+    "async": "~0.2.9"
+  },
+  "devDependencies": {
+    "sails-generate": "*",
+    "reportback": "*",
+    "fs-extra": "*",
+    "sails-generate-controller": "~0.10.7",
+    "sails-generate-model": "~0.10.9"
+  },
+  "sailsGenerator": {
+    "type": "api",
+    "behavior": "default implementation of `sails generate api`",
+    "sailsVersion": "~0.10.0"
+  },
+  "readme": "![image_squidhome@2x.png](http://i.imgur.com/RIvu9.png)\n\n# sails-generate-api\n\n\nA `api` generator for use with the Sails command-line interface.\n\n\n### Installing this generator\n\n> Certain generators are installed by default in Sails, but they can be overridden.  Check the [Sails docs](http://sailsjs.org/#!documentation) for information on installing generator overrides / custom generators.\n\n<!--\n```sh\n$ npm install sails-generate-api\n```\n-->\n\n\n##### For a particular app\n\nIn your app directory:\n\n```sh\n$ npm install sails-generate-api\n```\n\nThen edit this project's `./.sailsrc` file (see below for details).  If no local `.sailsrc` file exists yet, you can just create one.\n\n\n##### As the default for your global Sails install\n\nIn your $HOME folder (i.e. `~/`):\n\n```sh\n$ npm install sails-generate-api\n```\n\nThen edit your global `~/.sailsrc` file (see below for details).  If no global `.sailsrc` file exists yet, you can just create one.\n\n\n##### Configuring a `.sailsrc` file to use this generator\n\nAdd or replace the module used for generating a \"api\":\n\n```json\n{\n\t\"generators\": {\n\t\t\"modules\": {\n\t\t\t\"api\": \"sails-generate-api\"\n\t\t}\n\t}\n}\n```\n\n\n\n### Usage\n\nNow that the generator is installed, you can test it:\n\n```sh\n$ sails generate api foobar\n```\n\n\n\n### More Resources\n\n- [Stackoverflow](http://stackoverflow.com/questions/tagged/sails.js)\n- [#sailsjs on Freenode](http://webchat.freenode.net/) (IRC channel)\n- [Twitter](https://twitter.com/sailsjs)\n- [Professional/enterprise](https://github.com/balderdashy/sails-docs/blob/master/FAQ.md#are-there-professional-support-options)\n- [Tutorials](https://github.com/balderdashy/sails-docs/blob/master/FAQ.md#where-do-i-get-help)\n- <a href=\"http://sailsjs.org\" target=\"_blank\" title=\"Node.js framework for building realtime APIs.\"><img src=\"https://github-camo.global.ssl.fastly.net/9e49073459ed4e0e2687b80eaf515d87b0da4a6b/687474703a2f2f62616c64657264617368792e6769746875622e696f2f7361696c732f696d616765732f6c6f676f2e706e67\" width=60 alt=\"Sails.js logo (small)\"/></a>\n\n\n### License\n\n**[MIT](./LICENSE)**\n&copy; 2014 [balderdashy](http://github.com/balderdashy) & [contributors]\n[Mike McNeil](http://michaelmcneil.com), [Balderdash](http://balderdash.co) & contributors\n\n[Sails](http://sailsjs.org) is free and open-source under the [MIT License](http://sails.mit-license.org/).\n",
+  "readmeFilename": "README.md",
+  "_id": "sails-generate-api@0.10.0",
+  "_shasum": "83106f0ce1b9824e738487956dd967cd20f4c1af",
+  "_from": "sails-generate-api@~0.10.0",
+  "_resolved": "https://registry.npmjs.org/sails-generate-api/-/sails-generate-api-0.10.0.tgz"
+}

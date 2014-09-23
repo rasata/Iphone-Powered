@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>cli.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>cli.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="comment">/**
+ * Module dependencies.
+ */</span>
+
+<span class="keyword">var</span> _			= require(<span class="string">'lodash'</span>),
+	argv		= require(<span class="string">'optimist'</span>).argv;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Start building object to export</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">var</span> util = {};
+
+
+<span class="comment">/**
+ * Expose `fs`, but monkey-patched to make sure existsSync()
+ * doesn't crash older versions of Node
+ *
+ * @api private
+ */</span>
+
+<span class="keyword">var</span> fs = require(<span class="string">'fs-extra'</span>);
+fs.existsSync = fs.existsSync || require(<span class="string">'path'</span>).existsSync;
+util.fs = fs;
+
+
+
+
+
+<span class="comment">/**
+ * Convert command-line arguments into configuration
+ * options for the Sails core
+ *
+ * @param argv
+ *
+ * @api private
+ */</span>
+
+util.getCLIConfig = <span class="function"><span class="keyword">function</span> <span class="params">( argv )</span> {</span>
+
+	<span class="keyword">return</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p><code>--silent</code> command-line argument
+<code>--verbose</code> command-line argument
+<code>--silly</code> command-line argument</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		log:	argv.verbose ? {level: <span class="string">'verbose'</span>} : 
+				argv.silly ? {level: <span class="string">'silly'</span>} :
+				argv.silent ? {level: <span class="string">'silent'</span>} :
+				<span class="literal">undefined</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p><code>--port=?</code> command-line argument</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		port: argv.port || <span class="literal">undefined</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p><code>--prod</code> command-line argument</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		environment: argv.prod ? <span class="string">'production'</span> : <span class="literal">undefined</span>
+
+	};
+};
+
+
+
+
+<span class="comment">/**
+ * Methods which return a string with usage information
+ * for the Sails CLI
+ */</span>
+
+util.usage = {
+
+	sails: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+		<span class="keyword">var</span> usage = <span class="string">'Usage: sails &lt;command&gt;\n\n'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>(if node_modules/sails exists, it will be used instead of the global install)\n&#39;;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		usage += _tab(<span class="string">'sails lift'</span>) + <span class="string">'Run the Sails app in the current directory:\n'</span>;
+		usage += _tab(<span class="string">'  [--prod]'</span>) + <span class="string">'  - in production mode \n'</span>;
+		usage += _tab(<span class="string">'  [--port 3000]'</span>) + <span class="string">'  - on port 3000 \n'</span>;
+		usage += _tab(<span class="string">'  [--verbose]'</span>) + <span class="string">'  - with verbose logging enabled \n'</span>;
+		usage += <span class="string">'\n'</span>;
+		usage += _tab(<span class="string">'sails new &lt;appName&gt;'</span>) + <span class="string">'Create a new Sails project in a folder called &lt;appName&gt;:\n'</span>;
+		usage += _tab(<span class="string">'  [--no-linker]'</span>) + <span class="string">'  - disable auto-&lt;link&gt; of assets in HTML files via Grunt\n'</span>;
+		usage += <span class="string">'\n'</span>;
+		usage += _tab(<span class="string">'sails generate model &lt;foo&gt;'</span>) + <span class="string">'Generate a model (`api/models/Foo.js`)\n'</span>;
+		usage += _tab(<span class="string">'sails generate controller &lt;foo&gt;'</span>) + <span class="string">'Generate a controller (`api/controllers/FooController.js`)\n'</span>;
+		usage += _tab(<span class="string">'sails generate &lt;foo&gt;'</span>) + <span class="string">'Generate both.\n'</span>;
+		usage += _tab(<span class="string">'  [--dry]'</span>) + <span class="string">'Don\'t actually create the module file.\n'</span>;
+		usage += <span class="string">'\n'</span>;
+		usage += _tab(<span class="string">'sails console'</span>) + <span class="string">'Run Sails in interactive mode (REPL)\n'</span>;
+		usage += _tab(<span class="string">'sails version'</span>) + <span class="string">'Get the current globally installed Sails version\n'</span>;
+		usage += _tab(<span class="string">'sails run &lt;command&gt;'</span>) + <span class="string">'Run a management command (exported by YOUR_APP/commands/index.js)'</span>;
+
+		<span class="keyword">return</span> usage;
+	},
+
+
+	generate: {
+		model: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+			<span class="keyword">var</span> usage = <span class="string">'Usage:\n'</span>;
+			usage += <span class="string">'sails generate model &lt;foo&gt; [attribute0Name:type] [attribute1Name:attribute1Type] [...]'</span> + <span class="string">'\n'</span>;
+			usage += <span class="string">'\n'</span>;
+			usage += <span class="string">'E.g., to generate api/models/Cockatiel.js:'</span> + <span class="string">'\n'</span>;
+			usage += <span class="string">'sails generate model cockatiel'</span> + <span class="string">'\n'</span>;
+			usage += <span class="string">'\n'</span>;
+			usage += <span class="string">'With some attributes:'</span> + <span class="string">'\n'</span>;
+			usage += <span class="string">'sails generate model cockatiel name:string weight:float birthdate:date color:string'</span>;
+		}
+	}
+};
+
+
+
+
+
+
+
+<span class="comment">/**
+ * Generate a file
+ *
+ * @api private
+ */</span>
+
+util.generateFile = <span class="function"><span class="keyword">function</span><span class="params">(boilerplatePath, newPath)</span> {</span>
+	<span class="keyword">var</span> fullBpPath = __dirname + <span class="string">'/boilerplates/'</span> + (boilerplatePath || <span class="string">''</span>);
+	<span class="keyword">var</span> file = fs.readFileSync(fullBpPath, <span class="string">'utf8'</span>);
+	<span class="keyword">var</span> newFilePath = (newPath || <span class="string">''</span>);
+	util.verifyDoesntExist(newFilePath, <span class="string">'A file/directory already exists at '</span> + newFilePath);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Touch output file to make sure the path to it exists</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">if</span> (fs.createFileSync(newFilePath)) {
+		log.error(<span class="string">'Could not create file, '</span> + newFilePath + <span class="string">'!'</span>);
+		process.exit(<span class="number">1</span>);
+	}
+	fs.writeFileSync(newFilePath, file);
+};
+
+
+
+<span class="comment">/**
+ * Generate a directory
+ *
+ * @api private
+ */</span>
+
+util.generateDir = <span class="function"><span class="keyword">function</span><span class="params">(newPath, gitkeep)</span> {</span>
+	<span class="keyword">if</span> (!newPath) {
+		log.verbose(<span class="string">'Creating directory in pwd...'</span>);
+	} <span class="keyword">else</span> {
+		log.verbose(<span class="string">'Creating directory directory in '</span> + newPath + <span class="string">'...'</span>);
+	}
+	<span class="keyword">var</span> newDirPath = (newPath || <span class="string">''</span>);
+	util.verifyDoesntExist(newDirPath, <span class="string">'A file/directory already exists at '</span> + newDirPath);
+	fs.mkdirSync(newDirPath);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>If directory will be empty, create a .gitkeep in it</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">if</span> (gitkeep) {
+		generateFile(<span class="string">'.gitkeep'</span>, newPath + <span class="string">'/.gitkeep'</span>);
+	}
+};
+
+
+<span class="comment">/**
+ * Verify that a file doesn't exist
+ *
+ * @api private
+ */</span>
+
+util.verifyDoesntExist = <span class="function"><span class="keyword">function</span><span class="params">(path, msg)</span> {</span>
+	<span class="keyword">if</span> (util.fileExists(path)) {
+		log.error(msg);
+		process.exit(<span class="number">1</span>);
+	}
+};
+
+
+
+<span class="comment">/** 
+ * Check if a file or directory exists
+ *
+ * @api private
+ */</span>
+
+util.fileExists = <span class="function"><span class="keyword">function</span><span class="params">(path)</span> {</span>
+	<span class="keyword">try</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Query the entry</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">var</span> stats = fs.lstatSync(path);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Is it a directory?</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">if</span> (stats.isDirectory() || stats.isFile()) {
+			<span class="keyword">return</span> <span class="literal">true</span>;
+		}
+	} <span class="keyword">catch</span> (e) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>...</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	}
+
+	<span class="keyword">return</span> <span class="literal">false</span>;
+};
+
+
+
+<span class="comment">/** 
+ * Read an EJS template representing a Sails module,
+ * then send back the return string.
+ *
+ * @api private
+ */</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>util.renderBoilerplateTemplate = function(path, data) {
+    var boilerplatePath = __dirname + &#39;/boilerplates/templates/&#39; + boilerplate;
+    util.verifyExists(boilerplatePath, &quot;Boilerplate (&quot; + boilerplate + &quot;) doesn&#39;t exist!&quot;);
+    var file = fs.readFileSync(boilerplatePath, &#39;utf8&#39;);
+    return ejs.render(file, data);
+};</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="comment">/** 
+ *
+ *
+ * @api private
+ */</span>
+
+util.verifyExists = <span class="function"><span class="keyword">function</span><span class="params">(path, msg)</span> {</span>
+	<span class="keyword">if</span> (!util.fileExists(path)) {
+		log.error(msg);
+		process.exit(<span class="number">1</span>);
+	}
+};
+
+
+
+<span class="comment">/** 
+ * Copy a boilerplate directory or file
+ *
+ * @api private
+ */</span>
+
+util.copyBoilerplate = <span class="function"><span class="keyword">function</span><span class="params">(boilerplate, destination, cb)</span> {</span>
+	<span class="keyword">var</span> boilerplatePath = __dirname + <span class="string">'/boilerplates/'</span> + boilerplate;
+	fs.copy(boilerplatePath, destination, <span class="function"><span class="keyword">function</span><span class="params">(err)</span> {</span>
+		<span class="keyword">return</span> cb &amp;&amp; cb(err);
+	});
+};
+
+
+
+<span class="comment">/** 
+ * Copy global sails module into current project as a local dependency
+ * (currently unusued)
+ *
+ * @api private
+ */</span>
+
+util.copySails = <span class="function"><span class="keyword">function</span><span class="params">(destination, cb)</span> {</span>
+	<span class="keyword">try</span> {
+		fs.mkdirSync(destination);
+	} <span class="keyword">catch</span> (e) {
+		<span class="keyword">return</span> cb &amp;&amp; cb(e);
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Progress notifications</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="keyword">var</span> stopShowingProgressNotifications,
+		errorCopying,
+		interval = <span class="number">150</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Draw progress notification
+Returns progress function</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	log.verbose(<span class="string">'Copying modules into '</span> + destination + <span class="string">'...'</span>);
+	<span class="keyword">var</span> canvas = turtle();
+
+	async.until(
+
+	<span class="function"><span class="keyword">function</span> <span class="title">checkIfDone</span><span class="params">()</span> {</span>
+		canvas.tick();
+		<span class="keyword">return</span> stopShowingProgressNotifications;
+	},
+
+	<span class="function"><span class="keyword">function</span> <span class="title">setAlarm</span><span class="params">(cb)</span> {</span>
+		setTimeout(cb, interval);
+	},
+
+	<span class="function"><span class="keyword">function</span> <span class="title">done</span><span class="params">(err)</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>If an error occurred, send it back</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		err = err || errorCopying;
+		<span class="keyword">return</span> cb &amp;&amp; cb(err);
+	});
+
+	async.each([<span class="string">'lib'</span>, <span class="string">'package.json'</span>, <span class="string">'node_modules'</span>], <span class="function"><span class="keyword">function</span><span class="params">(fileOrDir, cb)</span> {</span>
+		fs.copy(__dirname + <span class="string">'/../'</span> + fileOrDir, destination + <span class="string">'/'</span> + fileOrDir, cb);
+	}, <span class="function"><span class="keyword">function</span> <span class="title">doneCopying</span><span class="params">(err)</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Hold onto error if there is one</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		errorCopying = err;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>When finished copying, mark done
+progress notifications will trigger the callback</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		stopShowingProgressNotifications = <span class="literal">true</span>;
+	});
+};
+
+
+
+<span class="comment">/** 
+ * Copy a core Sails dependency to the top-level node_modules directory
+ * of the current application---- in a smart way
+ *
+ * @api private
+ */</span>
+
+util.copySailsDependency = <span class="function"><span class="keyword">function</span><span class="params">(moduleName, pathToNewNodeModules, cb)</span> {</span>
+	<span class="keyword">var</span> path = __dirname + <span class="string">'/../node_modules/'</span> + moduleName;
+	fs.copy(path, pathToNewNodeModules + <span class="string">'/'</span> + moduleName, <span class="function"><span class="keyword">function</span><span class="params">(err)</span> {</span>
+		<span class="keyword">if</span> (err) <span class="keyword">return</span> cb &amp;&amp; cb(err);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Parse the module&#39;s package.json</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">var</span> packageJSONPath = path + <span class="string">'/package.json'</span>;
+		<span class="keyword">var</span> packageJSON;
+		<span class="keyword">try</span> {
+			packageJSON = JSON.parse(fs.readFileSync(packageJSONPath, <span class="string">'utf-8'</span>));
+		} <span class="keyword">catch</span> (e) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Ignore missing package.json</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			packageJSON = {
+				dependencies: {}
+			};
+		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Get actual dependencies in this module&#39;s node_modules directory</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">var</span> dependencies;
+		<span class="keyword">try</span> {
+			dependencies = fs.readdirSync(path + <span class="string">'/node_modules'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Remove hidden files</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			_.without(dependencies, <span class="function"><span class="keyword">function</span><span class="params">(val)</span> {</span>
+				<span class="keyword">return</span> val.match(<span class="regexp">/\..+/</span>);
+			});
+		} <span class="keyword">catch</span> (e) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Assume empty dependencies</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			dependencies = {};
+		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>If there are any missing dependencies which are being pulled from Sails,
+copy them from Sails&#39; main node_modules directory</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="keyword">var</span> missingModules = _.difference(_.keys(packageJSON.dependencies || {}), _.values(dependencies));
+		_.each(missingModules, <span class="function"><span class="keyword">function</span><span class="params">(missingModuleName)</span> {</span>
+			log.verbose(<span class="string">'Resolving '</span> + moduleName + <span class="string">'\'s missing dependency ('</span> + missingModuleName + <span class="string">') using the version in Sails.'</span>);
+			util.copySailsDependency(missingModuleName, pathToNewNodeModules + <span class="string">'/'</span> + moduleName + <span class="string">'/node_modules/'</span>);
+		});
+
+		<span class="keyword">return</span> cb &amp;&amp; cb(err);
+	});
+};
+
+
+
+
+<span class="comment">/**
+ * Return a tabbed-over version of the string,
+ * adjusting for spacing
+ *
+ * @api private
+ */</span>
+<span class="function"><span class="keyword">function</span> <span class="title">_tab</span> <span class="params">(str)</span> {</span>
+	<span class="keyword">var</span> n = (<span class="number">33</span> - str.length);
+	<span class="keyword">return</span> str + _.str.repeat(<span class="string">' '</span>, n);
+}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>Export <code>util</code> object</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>module.exports = _.cloneDeep(util);</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

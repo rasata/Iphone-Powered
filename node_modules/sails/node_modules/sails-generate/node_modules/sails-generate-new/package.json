@@ -1,0 +1,44 @@
+{
+  "name": "sails-generate-new",
+  "version": "0.10.18",
+  "description": "Generate a new Sails app.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "controller",
+    "generator",
+    "sails",
+    "generate",
+    "plugin"
+  ],
+  "author": {
+    "name": "balderdashy"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "lodash": ">=2.4.x",
+    "merge-defaults": ">=0.1.0",
+    "async": "~0.2.9"
+  },
+  "devDependencies": {
+    "sails-generate": "*",
+    "reportback": "*",
+    "fs-extra": "*",
+    "sails-generate-backend": "~0.10.1",
+    "sails-generate-frontend": "~0.10.1",
+    "sails-generate-gruntfile": "~0.10.2"
+  },
+  "sailsGenerator": {
+    "type": "new",
+    "behavior": "default implementation of `sails new`",
+    "sailsVersion": "~0.10.0"
+  },
+  "readme": "# sails-generate-new\n\nA generator for Sails.js.\n\n\n## Usage\n\n#### On the command line\n\n```sh\nsails generate sails-generate-new\n```\n\n#### In a node script\n\n```javascript\nvar generate = require('sails-generate');\nvar scope = {};\ngenerate(require('sails-generate-new'), scope, function (err) {\n\tif (err) throw err;\n\n\t// Log output available in `scope` for your enjoyment:\n\tconsole.log(scope);\n});\n```\n\n\n## Contributing to this generator\n\nSee `CONTRIBUTING.md`.\n\n## License\n\nSee `LICENSE.md`.\n\n",
+  "readmeFilename": "README.md",
+  "_id": "sails-generate-new@0.10.18",
+  "_shasum": "b6d185d96bd64d4a98ebda9a981b3dda288309a1",
+  "_from": "sails-generate-new@~0.10.0",
+  "_resolved": "https://registry.npmjs.org/sails-generate-new/-/sails-generate-new-0.10.18.tgz"
+}
